@@ -1,2 +1,1 @@
-supervisor
-==========
+### A go client for interacting with Supervisor ###
