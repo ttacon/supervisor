@@ -318,9 +318,10 @@ func (s *supervisor) MethodSignature(method string) (vals []string, err error) {
 	return
 }
 
-func (s *supervisor) Multicall(calls []string) ([]string, error) {
+func (s *supervisor) Multicall(calls []string) (values []string, err error) {
 	// TODO(ttacon): do it
-	return nil, nil
+	err = s.rpcClient.Call("system.multiCall", []interface{}(calls), &values)
+	return
 }
 
 func (s *supervisor) Close() error {
