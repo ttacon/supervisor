@@ -302,19 +302,20 @@ func (s *supervisor) ClearAllProcessLogs() (success bool, err error) {
 	return
 }
 
+// System namespace methods
 func (s *supervisor) ListMethods() (values []string, err error) {
 	err = s.rpcClient.Call("system.listMethods", nil, &values)
 	return
 }
 
-func (s *supervisor) MethodHelp(method string) (string, error) {
-	// TODO(ttacon): do it
-	return "", nil
+func (s *supervisor) MethodHelp(method string) (val string, err error) {
+	err = s.rpcClient.Call("system.methodHelp", []interface{}{method}, &val)
+	return
 }
 
-func (s *supervisor) MethodSignature(method string) ([]string, error) {
-	// TODO(ttacon): do it
-	return nil, nil
+func (s *supervisor) MethodSignature(method string) (vals []string, err error) {
+	err = s.rpcClient.Call("system.methodSignature", []interface{}{method}, &vals)
+	return
 }
 
 func (s *supervisor) Multicall(calls []string) ([]string, error) {
