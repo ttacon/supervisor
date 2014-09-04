@@ -71,6 +71,12 @@ type Supervisor interface {
 	ClearProcessLogs(string) (bool, error)
 	ClearAllProcessLogs() (bool, error)
 
+	// System Methods (http://supervisord.org/api.html#system-methods)
+	ListMethods() ([]string, error)
+	MethodHelp(method string) (string, error)
+	MethodSignature(method string) ([]string, error)
+	Multicall(calls []string) ([]string, error) // TODO(ttacon): identify correct function signature
+
 	// misc
 	Close() error
 }
@@ -294,6 +300,26 @@ func (s *supervisor) ClearProcessLogs(name string) (success bool, err error) {
 func (s *supervisor) ClearAllProcessLogs() (success bool, err error) {
 	err = s.rpcClient.Call("supervisor.clearAllProcessLogs", nil, &success)
 	return
+}
+
+func (s *supervisor) ListMethods() (values []string, err error) {
+	err = s.rpcClient.Call("system.listMethods", nil, &values)
+	return
+}
+
+func (s *supervisor) MethodHelp(method string) (string, error) {
+	// TODO(ttacon): do it
+	return "", nil
+}
+
+func (s *supervisor) MethodSignature(method string) ([]string, error) {
+	// TODO(ttacon): do it
+	return nil, nil
+}
+
+func (s *supervisor) Multicall(calls []string) ([]string, error) {
+	// TODO(ttacon): do it
+	return nil, nil
 }
 
 func (s *supervisor) Close() error {
